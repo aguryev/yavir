@@ -16,6 +16,19 @@ RUN apk update \
     && pip install psycopg2 \
     && apk del build-deps
 
+# install Pillow
+RUN apk --no-cache add build-base jpeg-dev \
+    zlib-dev \
+    freetype-dev \
+    lcms2-dev \
+    openjpeg-dev \
+    tiff-dev \
+    tk-dev \
+    tcl-dev \
+    harfbuzz-dev \
+    fribidi-dev \
+    && pip install Pillow
+
 # install dependencies
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
@@ -31,4 +44,4 @@ RUN adduser -D myuser
 USER myuser
 
 # run gunicorn
-CMD gunicorn news_point.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn yavir.wsgi:application --bind 0.0.0.0:$PORT
