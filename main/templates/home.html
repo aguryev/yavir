@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Головна
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="jumbotron jumbotron-fluid text-white mt-5 page-mr" style="background:
+	linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({% static 'img/jumbotron_01.jpg' %});
+	background-size: cover;
+	background-position: center center;
+	height: 400px;">
+	<div class="container">
+		<h1 class="display-4">Вальдорфськаініціатива Явір</h1>
+		<p class="h3">
+			У просторі довіри, взаємоповаги та творчості ми прагнемо розкрити потенціал дітей, вчителів та батьків. Творити школу, відкриту до життя, наповнену світлом та здоров’ям. Через принципи вальдорфської педагогіки надихнути освітній простір країни на втілення живих, простих і практичних ідей.
+		</p>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		{{ articles.0.text|safe }}
+	</div>
+</div>
+
+<div class="jumbotron jumbotron-fluid text-white" style="
+	background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url({% static 'img/jumbotron_02.jpg' %});
+	background-size: cover;
+	background-position: center center;
+	height: 400px;"></div>
+
+<div class="container">
+	<div class="row">
+		<h1>{{ articles.1.title }}</h1>
+		{{ articles.1.text|safe }}
+	</div>
+
+	<!-- card grid -->
+	<div class="row row-cols-1 row-cols-md-3">
+	{% for c in classes %}
+		<div class="col mb-4">
+			<a href="/article/{{ c.section }}/{{ c.index }}/" class="card-link">
+				<div class="card">
+					<img src="{{ c.image.url }}" class="card-img-top" alt="">
+					<div class="card-body">
+						<h5 class="card-title">{{ c.title }}</h5>
+						<p class="card-text">{{ c.brief }}</p>
+					</div>
+				</div>
+			</a>
+		</div>
+	{% endfor %}
+	</div>
+
+	<div class="row">
+		<h1>{{ articles.2.title }}</h1>
+		{{ articles.2.text|safe }}
+	</div>
+
+</div>
+
+
+{% endblock %}

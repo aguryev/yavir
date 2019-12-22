@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Вхід
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="d-flex justify-content-center bg-light form-view">
+<form clas="form-box" method="post">
+	{% csrf_token %}
+	<div class="text-center mt-5">
+		<img class="mb-4" src="{% static 'img/yavir_75.png' %}" alt="">
+		<h1 class="h3 mb-3 font-weight-normal">Вхід до Явору</h1>
+	</div>
+
+	{% for field in form %}
+		<span  class="text-danger">{{ field.errors }}</span>
+		<div class="form-label-group">
+			{{ field }}
+			<label>{{ field.label_tag }}</label>
+		</div>
+	{% endfor %}
+
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Увійти</button>
+	<div class="mt-2">
+		<a href="/accounts/signup/">Зареєструвати нового користувача</a>
+	</div>
+	<div class="mt-2">
+		Забули пароль? <a href="/accounts/password/reset/">Відновити</a>
+	</div>
+</form>
+</div>
+
+
+{% endblock %}

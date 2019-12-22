@@ -1,0 +1,6 @@
+__pycache__
+env
+staticfiles
+set_vars.sh
+*.pyc
+db.sqlite3

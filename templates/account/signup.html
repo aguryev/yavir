@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Реєстрація
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="d-flex justify-content-center bg-light form-view">
+<form clas="form-box" method="post">
+	{% csrf_token %}
+	<div class="text-center mt-5">
+		<img class="mb-4" src="{% static 'img/yavir_75.png' %}" alt="">
+		<h1 class="h3 mb-3 font-weight-normal">Створити нового користувача</h1>
+	</div>
+
+	{% for field in form %}
+		<span  class="text-danger">{{ field.errors }}</span>
+		<div class="form-label-group">
+			{{ field }}
+			<label>{{ field.label_tag }}</label>
+		</div>
+	{% endfor %}
+
+
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Зареєструватись</button>
+	<div class="mt-2 justify-content-center">
+		Вже зареєстровані?
+		<a href="/accounts/login/">Увійти тут</a>
+	</div>
+</form>
+</div>
+
+
+
+{% endblock %}

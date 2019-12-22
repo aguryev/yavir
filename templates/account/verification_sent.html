@@ -1,0 +1,21 @@
+{% extends "account/base.html" %}
+
+{% block title %}
+ Підтвердження Email
+{% endblock %}
+
+{% block content %}
+	<div class="bg-light view-box">
+		<div class="container">
+			{% load static %}
+			<img class="mb-4 mx-auto d-block" src="{% static 'img/yavir_75.png' %}" alt="">
+			<h1> Підтвердіть ваш Email</h1>
+			<p>
+				Ми надіслали листа-підтвердження на ваш Email. Перейдить, будь ласка, за посиланням для завершення реєстрації.
+			</p>
+			<p>
+				Якщо лист не надійшов протягом кілкох хвилин, будь ласка, зв'яжитесь з нами.
+			</p>
+		</div>
+	</div>
+{% endblock %}

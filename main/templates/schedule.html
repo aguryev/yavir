@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Інфо
+{% endblock %}
+
+{% block content %}
+
+<ul class="nav nav-tabs page-mr">
+	<li class="nav-item">
+		<a class="nav-link" href="/{{ group }}/info/">Вчителі</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link active" href="/{{ group }}/schedule/">Розклад</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="/{{ group }}/discussion/">Обговорення</a>
+	</li>
+</ul>
+
+<div class="row mb-5 mr-5">
+	<!-- today card -->
+	{% load extra_tags %}
+	<div class="col-md-3">
+		<div class="card text-white bg-success">
+			<div class="card-body">
+				<h4 class="card-title">Сьогодні</h4>
+				<p class="card-text">{% today "weekday" %}</p>
+				<p class="card-text">{% today "date" %}</p>
+			</div>
+		</div>
+	</div>
+	<!-- schedule -->
+	<div class="col-md-9">
+		<h2>Розклад занять</h2>
+		<div class="card-group">
+			{% for tab in '012345'|make_list %}
+			<div class="card {% if tab|is_today %}text-white bg-success{% endif %}">
+				<div class="card-body">
+					<h5 class="card-title">{{ tab|get_header }}</h5>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		{% for row, lessons in week.items %}
+		<div class="card-group">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">{{ row }}</h5>
+				</div>
+			</div>
+			{% for lesson in lessons %}
+				<div class="card {% if forloop.counter|is_today %}text-white bg-success{% endif %}">
+					<div class="card-body">
+						<h5 class="card-title">{{ lesson }}</h5>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{% endfor %}
+
+	</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

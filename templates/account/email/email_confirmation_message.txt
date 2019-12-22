@@ -1,0 +1,11 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}
+
+Дякуємо, що приєдналися до Явору!
+
+Вам необхідо перейти за наведеним нижче посиланням, щоб активувати вашого користувача:
+{{ activate_url }}
+
+Залиште нам сівій відгук!
+
+{{ current_site.name }}
+{% endautoescape %}
