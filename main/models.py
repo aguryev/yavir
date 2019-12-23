@@ -6,33 +6,6 @@ from tinymce.models import HTMLField
 
 # Create your models here.
 
-class ClassDescription(models.Model):
-	#
-	# description of the school classes
-	#
-	title = models.CharField(max_length=32)
-	img_url = models.CharField(max_length=100)
-	brief = models.CharField(max_length=100)
-	description = models.TextField()
-
-	def __str__(self):
-		return self.title
-
-class ContactPerson(models.Model):
-	#
-	# contact person
-	#
-	name = models.CharField(max_length=16)
-	phone = models.CharField(max_length=16)
-	brief = models.CharField(max_length=16)
-
-	def __str__(self):
-		return ' '.join((
-			self.brief + ':',
-			self.name,
-			self.phone,
-			))
-
 class SiteArticle(models.Model):
 	#
 	# site article object
