@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.auth.models import User
 from django.utils import timezone
 from .. import signals
 
@@ -28,6 +29,18 @@ MONTHES = [
 	'Листопада',
 	'Грудня',
 	]
+
+@register.simple_tag
+def admin_email():
+	#
+	# returns admin's email
+	#
+	try:
+		admin = User.objects.get(username='admin')
+		return admin.email
+	except User.DoesNotExist:
+		return ''
+
 
 @register.simple_tag
 def group_list(group_type):
