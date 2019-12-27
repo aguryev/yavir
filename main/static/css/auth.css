@@ -1,11 +1,5 @@
 /* styles for auth pages */
 
-h1 {
-	font-family: 'Nunito';
-	font-size: 30px;
-	font-weight: bold;
-}
-
 button {
 	background-color: #388e3c;
 	color: white;
@@ -33,28 +27,51 @@ a:hover {
 	text-decoration: underline;
 }
 
-.auth-page {
-	background: linear-gradient(#e8f5e9, #4caf50);
-	text-align: center;
-	min-height: 100vh;
-	min-width: 430px;
+html, body {
+	height: 100%;
 }
 
-hr {
-	margin-bottom: 20px;
-	width: 430px;
+body {
+	background: linear-gradient(#e8f5e9, #4caf50);
+}
+
+.auth-wrap {
+	text-align: center;
+	width: 100%;
+	padding: 15px;
+	margin: auto;
+	min-height: 100%;
+	margin-bottom: -60px;
+	
+}
+
+.auth-wrap:after {
+	content: "";
+	display: block;
+	height: 60px;
+}
+
+.auth-wrap h1 {
+	font-family: 'Nunito';
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.auth-wrap hr {
+	width: 380px;
+}
+
+.auth-footer {
+	display: block;
+	margin: auto;
+	width: 100%;
+	max-width: 380px;
+	text-align: center;
 }
 
 .auth-logo {
 	margin-top: 50px;
 	margin-bottom: 10px;
-}
-
-.auth-footer {
-	position: fixed;
-	text-align: center;
-	width: 100%;
-	bottom: 10px;
 }
 
 .error {
