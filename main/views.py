@@ -6,8 +6,8 @@ from . import models, forms
 
 def home(request):
 	#classes = models.ClassDescription.objects.all()
-	articles = models.SiteArticle.objects.filter(section='0').order_by('index')
-	classes = models.SiteArticle.objects.filter(section='1').order_by('index')
+	articles = models.SiteArticle.objects.filter(section='0').order_by('position')
+	classes = models.SiteArticle.objects.filter(section='1').order_by('position')
 	return render(
 		request=request,
 		template_name='home.html',
@@ -18,7 +18,7 @@ def home(request):
 		)
 
 def site_article(request, section, index):
-	article = get_object_or_404(models.SiteArticle, section=section, index=index)
+	article = get_object_or_404(models.SiteArticle, section=section, position=index)
 	return render(
 		request=request,
 		template_name='site_article.html',

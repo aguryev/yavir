@@ -1,5 +1,6 @@
 from django import template
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from ..models import User
 from django.utils import timezone
 from .. import signals
 
@@ -36,7 +37,7 @@ def admin_email():
 	# returns admin's email
 	#
 	try:
-		admin = User.objects.get(username='admin')
+		admin = User.objects.get(id=1)
 		return admin.email
 	except User.DoesNotExist:
 		return ''

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	{% load static %}
+	{% load extra_tags %}
 
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -10,7 +12,6 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<!-- local CSS -->
-	{% load static %}
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 	<!-- set favicon -->
@@ -68,7 +69,6 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownP">
 						<a class="dropdown-item" href="#">Повідомлення</a>
 						<div class="dropdown-divider"></div>
-						{% load extra_tags %}
 						{% group_list 'class' as groups %}
 						{% for key, value in groups.items %}
 							{% if user|in_group:key %}
@@ -140,7 +140,7 @@
 				<p class="my-0">Запис до класів</p>
 				<p class="my-0">тел. (096) 773-64-69</p>
 				<p class="mt-3">Вальдорфська ініціатива "Явір"</p>
-				<a href="mailto:admin@yavir.org">admin@yavir.org</a>
+				<a href="mailto:{% admin_email %}">{% admin_email %}</a>
 			</div>
 			<div class="col">
 				<h3>Місце знаходження</h3>

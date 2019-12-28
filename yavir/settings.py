@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     #tinymce
     'tinymce',
     # local
-    'main.apps.MainConfig',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -143,8 +143,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# custom user model
+AUTH_USER_MODEL = 'main.User'
+
 # allauth settings
 SITE_ID = 1
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 #ACCOUNT_SIGNUP_FORM_CLASS = 'main.forms.RegistrationForm'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1

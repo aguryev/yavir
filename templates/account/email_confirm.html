@@ -1,0 +1,28 @@
+{% extends "auth_base.html" %}
+
+{% block head_title %}
+ Підтвердження Email
+{% endblock %}
+
+
+{% block content %}
+<h1>Підтвердіть Ваш Email</h1>
+
+{% if confirmation %}
+    <div class="my-2">
+        Будь ласка, підтвердіть, що Email <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> належить Вам.
+    </div>
+    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        {% csrf_token %}
+        <button type="submit">Підтвердити</button>
+    </form>
+
+{% else %}
+    {% url 'account_email' as email_url %}
+    <div class="mt-2">
+        Це посилання є застарілим або хибним. Будь ласка, <a href="{{ email_url }}">зпросить нове підтвердження</a>.
+    </div>
+
+{% endif %}
+
+{% endblock %}
