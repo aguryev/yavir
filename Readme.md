@@ -9,6 +9,10 @@
 		події
 	можливість коментування активних елементів
 
+## Зроблено
+	оновлено модель користувача (custom user)
+	login with Google & Facebook (need some improvements concerning https)
+
 ## TODO
 	завершити фронтенд (зараз використано Bootstrap 4)
 	наповнення сторінок
