@@ -20,7 +20,7 @@ conn_sql = sqlite3.connect(sql_filename)
 sql = conn_sql.cursor()
 
 # copy data
-for table in table_list[1:6]:
+for table in table_list[:1]:
 	print(f'table: {table}')
 	# get sql columns
 	query = f"SELECT * from {table} where 1=0"
@@ -49,7 +49,10 @@ for table in table_list[1:6]:
 			','.join(["%s" for i in range(len(sql_col))]),
 			')',
 			))
-		pg.execute(query, data_update)
+		try:
+			pg.execute(query, data_update)
+		except:
+			pass
 
 # save changes
 conn.commit()

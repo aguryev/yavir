@@ -181,10 +181,11 @@ EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # social account providers
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'HTTPS'
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'METHOD': 'oauth2',
-        'SCOPE': ['email','public_profile', 'user_friends'],
+        'SCOPE': ['email','public_profile'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
         'FIELDS': [
             'id',
@@ -204,7 +205,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v2.4'
         }
     }
-    
+
 
 #tinymce settings
 
