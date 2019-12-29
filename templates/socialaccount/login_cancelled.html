@@ -1,0 +1,18 @@
+{% extends "auth_base.html" %}
+
+{% block head_title %}
+ Відміна входу
+{% endblock %}
+
+{% block content %}
+
+<h1>Відміна входу</h1>
+
+<div class="mt-2">
+	Ви вирішили відмовитись від входу до Явору за допомогою одного з ваших акаунтів.
+</div>
+<div class="mt-2">
+	Якщо це було помилкою, будь ласка, перейдіть <a href="{% url 'account_login' %}">до входу</a>.
+</div>
+
+{% endblock %}

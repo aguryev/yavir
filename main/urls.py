@@ -27,4 +27,5 @@ urlpatterns = [
     path('<group_name>/schedule/', views.schedule, name='schedule'),
     path('event/<int:event_id>/', views.event, name='event'),
     #path('addpost/', views.AddPostView.as_view(), name='add-post'),
+    path('privacypolicy/', views.privacypolicy, name='privacy-policy'),
 ]

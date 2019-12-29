@@ -1,0 +1,32 @@
+{% extends "auth_base.html" %}
+
+{% block head_title %}
+ Вхід
+{% endblock %}
+
+{% block content %}
+<h1>Вхід до Явору</h1>
+
+<div class="mt-2">
+	Ви збираєтесь увійти через {{ account.get_provider.name }} акаунт.
+</div>
+<div class="mb-2">
+	Для завершення входу, будь ласка, підтвержіть наступну форму:
+</div>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+	{% csrf_token %}
+	{% for field in form %}
+		<span  class="error">{{ field.errors }}</span>
+		<div class="form-label-group">
+			{{ field }}
+			<label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+		</div>
+	{% endfor %}
+	{% if redirect_field_value %}
+		<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+	{% endif %}
+	<button class="btn-auth btn-submit" type="submit">Увійти</button>	
+</form>
+
+{% endblock %}

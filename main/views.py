@@ -91,3 +91,10 @@ def schedule(request, group_name):
 		template_name='schedule.html',
 		context={'group': group_name, 'week':week},
 		)
+
+def privacypolicy(request):
+	return render(
+		request=request,
+		template_name='privacypolicy.html',
+		context={},
+		) 

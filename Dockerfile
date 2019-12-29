@@ -16,7 +16,7 @@ RUN apk update \
     && pip install psycopg2 \
     && apk del build-deps
 
-# install Pillow
+# install Pillow dependencies
 RUN apk --no-cache add build-base jpeg-dev \
     zlib-dev \
     freetype-dev \
@@ -26,8 +26,7 @@ RUN apk --no-cache add build-base jpeg-dev \
     tk-dev \
     tcl-dev \
     harfbuzz-dev \
-    fribidi-dev \
-    && pip install Pillow
+    fribidi-dev
 
 # install dependencies
 COPY ./requirements.txt .

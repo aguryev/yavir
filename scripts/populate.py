@@ -2,7 +2,7 @@ import psycopg2
 import sqlite3
 import re
 
-pg_url = 'postgres://ocidbmxfzmcauw:bf89ba679538c04f4892a95e6d01f4086455c2c5d02f91dc445006fff370c595@ec2-174-129-24-148.compute-1.amazonaws.com:5432/dcs49j7lqp5kbf'
+pg_url = 'postgres://enwclrnwpozlon:95e0a6a15a5869a5c4b86ef9419baa5196f6f13b47ff7430746f4c3f7dfdf7e6@ec2-54-243-193-59.compute-1.amazonaws.com:5432/d1is9re90vas1h'
 sql_filename = 'db.sqlite3'
 
 # connect PG
@@ -12,7 +12,8 @@ pg = conn.cursor()
 # get tables
 query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
 pg.execute(query)
-table_list = [table[0] for table in pg.fetchall() if re.match(r'main_', table[0])]
+table_list = [table[0] for table in pg.fetchall() if re.match(r'main_', table[0]) and not re.match(r'main_user', table[0])]
+#print([table for table in pg.fetchall()])
 
 # connect SQLite
 conn_sql = sqlite3.connect(sql_filename)
