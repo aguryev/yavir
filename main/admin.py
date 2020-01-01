@@ -3,10 +3,16 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from . import models
 
 # Register your models here.
+
+#class ChildInline(admin.TabularInline):
+#    model = models.User.children.through
+#    extra = 1
+
 class UserAdmin(BaseUserAdmin):
+    #inlines = (ChildInline,)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'children')}),
         ('Permissions', {'fields': (
             'is_active', 
             'is_staff', 
@@ -30,10 +36,24 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
     search_fields = ('email',)
     ordering = ('email',)
-    filter_horizontal = ('groups', 'user_permissions',)
+    filter_horizontal = ('children', 'groups', 'user_permissions',)
+
+
+class ChildAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('first_name', 'last_name', 'birthday')}),
+        ('Class', {'fields': ('class_id',)}),
+        )
+
+    list_display = ('__str__', 'class_id', 'birthday')
+    ordering = ('class_id', 'last_name',)
+    search_fields = ('last_name',)
+
 
 
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Child, ChildAdmin)
+admin.site.register(models.Class)
 admin.site.register(models.SiteArticle)
 admin.site.register(models.BlogArticle)
 admin.site.register(models.ArticleComment)

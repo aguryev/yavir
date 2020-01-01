@@ -8,6 +8,44 @@ from tinymce.models import HTMLField
 
 # Create your models here.
 
+# site sections 
+SECTION_HOME = 0
+SECTION_CLASS = 1
+
+# article status
+STATUS_UNPUBLISHED = 0
+STATUS_PUBLISHED = 1
+STATUS_DECLINED = 2
+
+class Class(models.Model):
+	#
+	# object of a class
+	#
+	title = models.CharField(max_length=16)
+	start_year = models.IntegerField(default=timezone.now().year)
+
+	class Meta:
+		verbose_name_plural = 'classes'
+
+	def __str__(self):
+		return self.title
+
+
+class Child(models.Model):
+	#
+	# object of a child
+	#
+	first_name = models.CharField(max_length=16)
+	last_name = models.CharField(max_length=16)
+	birthday = models.DateField(blank=True, null=True)
+	class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
+
+	class Meta:
+		verbose_name_plural = 'children'
+
+	def __str__(self):
+		return f'{self.last_name} {self.first_name}'
+
 # -------> START: custom user  definition
 class UserManager(BaseUserManager):
 	
@@ -43,6 +81,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	is_active = models.BooleanField(default=True)
 	last_login = models.DateTimeField(null=True, blank=True)
 	date_joined = models.DateTimeField(default=timezone.now)
+	children = models.ManyToManyField(Child)
 
 	USERNAME_FIELD = 'email'
 	ENAIL_FIELD = 'email'
@@ -66,8 +105,8 @@ class SiteArticle(models.Model):
 	changed = models.DateTimeField(default=timezone.now)
 	# article section
 	section = models.IntegerField(choices=(
-		(0, 'home'),
-		(1, 'class'),
+		(SECTION_HOME, 'home'),
+		(SECTION_CLASS, 'class'),
 		))
 	position = models.IntegerField(default=0)
 	is_active = models.BooleanField(default=True)
@@ -87,9 +126,9 @@ class BlogArticle(models.Model):
 	posted = models.DateTimeField(default=timezone.now)
 	# status of the article
 	status = models.IntegerField(default=0, choices=(
-		(0, 'Unpublished'),
-		(1, 'Published'),
-		(2, 'Declined'),
+		(STATUS_UNPUBLISHED, 'Unpublished'),
+		(STATUS_PUBLISHED, 'Published'),
+		(STATUS_DECLINED, 'Declined'),
 		))
 
 	def __str__(self):
