@@ -20,12 +20,22 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('profile/', views.profile, name='profile'),
+    # articles
+    path('blog/', views.articles_list, name='blog'),
+    path('artcle/blog/<int:article_id>/', views.blog_article, name='blog-article'),
     path('article/<int:section>/<int:index>/', views.site_article, name='site-article'),
-    path('events/', views.default_events, name='default-events-list'),
-    path('<group_name>/events/', views.events_list, name='events-list'),
-    path('<group_name>/info/', views.info, name='info'),
-    path('<group_name>/schedule/', views.schedule, name='schedule'),
+    path('addarticle/', views.AddArticleView.as_view(), name='add-article'),
+    # invents
+    path('events/', views.default_events, name='default-events'),
+    path('events/<group_name>/', views.group_events, name='group-events'),
     path('event/<int:event_id>/', views.event, name='event'),
+    # class page
+    path('<class_id>/info/', views.info, name='info'),
+    path('<class-id>/schedule/', views.schedule, name='schedule'),
+    
     #path('addpost/', views.AddPostView.as_view(), name='add-post'),
+
+    # privacy policy
     path('privacypolicy/', views.privacypolicy, name='privacy-policy'),
 ]

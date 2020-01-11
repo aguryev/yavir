@@ -19,7 +19,7 @@ conn_new = sqlite3.connect(sql_filename)
 sql = conn_new.cursor()
 
 # copy data
-for table in table_list:
+for table in table_list[3:5]:
 	print(f'table: {table}')
 	# get sql columns
 	query = f"SELECT * from {table} where 1=0"
@@ -30,16 +30,33 @@ for table in table_list:
 			sql_col[i] = 'position'
 	print(sql_col)
 
+	# add is_active field
+	if re.match(r'\w+comment$', table):
+		sql_col.append('is_active')
+	
 	# get sql data
 	query = f"SELECT * FROM {table}"
 	pre.execute(query)
 
 	# add data to new DB
 	for data in pre.fetchall():
+		data_list = list(data)
 		# update author_ids with 1
 		for i in range(len(sql_col)):
 			if sql_col[i] == 'author_id':
-				data[i] == 1
+				data_list[i] == 1
+
+		# add is_active field
+		if re.match(r'\w+comment$', table):
+			data_list.append(1)
+
+		# fix group id
+		if 'group_id' in sql_col:
+			pos = sql_col.index('group_id')
+			if data_list[pos] == 8:
+				data_list[pos] = 18
+			else:
+				data_list[pos] = 21
 
 		print (f'data: {data[0]}')
 		query = ''.join((
@@ -49,12 +66,13 @@ for table in table_list:
 			','.join(["?" for i in range(len(sql_col))]),
 			')',
 			))
-		#for i in range(len(data)):
-		#	print(f"{sql_col[i]}: '{data[i]}' - '{data_update[i]}'")
+		for i in range(len(sql_col)):
+			print(f"{sql_col[i]}: '{data_list[i]}'")
+		print()
 		#print(query)
-		#print(data)
 
-		sql.execute(query, data)
+
+		sql.execute(query, data_list)
 
 # save changes
 conn_new.commit()

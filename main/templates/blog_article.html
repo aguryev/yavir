@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ {{ article.title }}
+{% endblock %}
+
+{% block content %}
+{% load extra_tags %}
+
+<div class="container page-mr">
+	<h1>{{ article.title }}</h1>
+	<p><small>
+		{{ article.posted|format_date:"full" }}
+	</small></p>
+	{% if article.image %}
+	<img class="img-left" src="{{ article.image.url }}">
+	{% endif %}
+	{{ article.text|safe }}
+
+	<h4 class="mt-5">Коментарі:</h4>
+	{% for comment in comments %}
+		<div class="border">
+			<strong>{% user_name comment.author %}</strong></br>
+			<small>{{ comment.posted }}</small></br>
+		{{ comment.text }}
+	</div>
+
+{% empty %}
+	No comments yet...
+{% endfor %}
+
+{% if user.is_authenticated %}
+<form method="post" class="mt-2">
+	{% csrf_token %}
+	{{ form.text }}
+	<div>
+		<button class="btn btn-primary mt-1" type="submit">Додати Коментар</button>
+	</div>
+</form>
+{% endif %}
+
+
+</div>
+
+
+{% endblock %}

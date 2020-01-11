@@ -94,36 +94,43 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 # -------> END: custom user  definition
 
-class SiteArticle(models.Model):
+# Articles
+
+class AbstractArticle(models.Model):
 	#
-	# site article object
+	# base article object
 	#
 	title = models.CharField(max_length=50)
-	brief = models.CharField(max_length=100, blank=True)
+	brief = models.CharField(max_length=200, blank=True)
 	text = HTMLField() # reach text tinymce field
 	image = models.ImageField(blank=True) 
-	changed = models.DateTimeField(default=timezone.now)
-	# article section
-	section = models.IntegerField(choices=(
-		(SECTION_HOME, 'home'),
-		(SECTION_CLASS, 'class'),
-		))
-	position = models.IntegerField(default=0)
-	is_active = models.BooleanField(default=True)
+	posted = models.DateTimeField(default=timezone.now)
 
+	class Meta:
+		abstract = True
 
 	def __str__(self):
 		return self.title
 
-class BlogArticle(models.Model):
+class SiteArticle(AbstractArticle):
+	#
+	# site article object
+	#
+	# site section, where the article should be posted
+	section = models.IntegerField(choices=(
+		(SECTION_HOME, 'home'),
+		(SECTION_CLASS, 'class'),
+		))
+	# zero-based position of the article in the section
+	position = models.IntegerField(default=0)
+	is_active = models.BooleanField(default=True)
+
+class BlogArticle(AbstractArticle):
 	#
 	# blog article object
 	#
-	title = models.CharField(max_length=50)
-	brief = models.CharField(max_length=300)
-	text = HTMLField() # reach text tinymce field 
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
-	posted = models.DateTimeField(default=timezone.now)
+	associate_with = models.ForeignKey(SiteArticle, on_delete=models.SET_NULL, blank=True, null=True)
 	# status of the article
 	status = models.IntegerField(default=0, choices=(
 		(STATUS_UNPUBLISHED, 'Unpublished'),
@@ -131,26 +138,7 @@ class BlogArticle(models.Model):
 		(STATUS_DECLINED, 'Declined'),
 		))
 
-	def __str__(self):
-		return ' '.join((
-			self.posted.strftime('%d-%m-%Y'),
-			self.title,
-			))
-
-class ArticleComment(models.Model):
-	#
-	# comment to a blog article
-	#
-	text = HTMLField() # reach text tinymce field 
-	author = models.ForeignKey(User, on_delete=models.CASCADE)
-	posted = models.DateTimeField(default=timezone.now)
-	article = models.ForeignKey(BlogArticle, on_delete=models.CASCADE)
-
-	def __str__(self):
-		return ' '.join((
-			self.posted.strftime('%d-%m-%Y %H:%m'),
-			self.article.title,
-			))
+# Events
 
 class Event(models.Model):
 	#
@@ -170,20 +158,40 @@ class Event(models.Model):
 			self.title,
 			))
 
-class EventComment(models.Model):
+# Comments
+
+class AbstractComment(models.Model):
 	#
-	# comment to an event
+	# base comment object
 	#
 	text = HTMLField() # reach text tinymce field 
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	posted = models.DateTimeField(default=timezone.now)
+	is_active = models.BooleanField(default=True)
+
+	class Meta:
+		abstract = True
+
+class ArticleComment(AbstractComment):
+	#
+	# comment to an article
+	#
+	article = models.ForeignKey(BlogArticle, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.article.title
+
+class EventComment(AbstractComment):
+	#
+	# comment to an event
+	#
 	event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return ' '.join((
-			self.posted.strftime('%d-%m-%Y %H:%m'),
-			self.event.title,
-			))
+		return self.event.title
+
+
+# objects for classes
 
 class Lesson(models.Model):
 	title = models.CharField(max_length=32)

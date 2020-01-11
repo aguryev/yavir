@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Профіль
+{% endblock %}
+
+{% block content %}
+
+<div class="container page-mr">
+	<h1>Мій профіль</h1>
+	{% if user.is_authenticated %}
+	<form method="post" class="mt-2">
+		{% csrf_token %}
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text fixed-width">Email</span>
+			</div>
+			<input type="text" class="form-control" name="email" value="{{ user.email }}">
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text fixed-width">Ім&apos;я</span>
+			</div>
+			<input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
+		</div>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text fixed-width">Призвіще</span>
+			</div>
+			<input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
+		</div>
+		<div class="input-group mb-3">
+			<span class="input-group-text fixed-width">Діти</span>
+			{% for child in user.children.all %}
+			<div class="chip mx-1">
+				{{ child }}
+				<span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+			</div>
+			{% endfor %}
+		</div>
+
+
+
+
+			<button class="btn btn-primary mt-1" type="submit">Змінити</button>
+		</div>
+	</form>
+	{% endif %}
+
+</div>
+
+
+{% endblock %}

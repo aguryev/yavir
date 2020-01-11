@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Новий допис
+{% endblock %}
+
+{% block content %}
+<div class="container page-mr">
+	<h1>Створити новий допис</h1>
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% for field in form %}
+			<span  class="error">{{ field.errors }}</span>
+			<div class="my-2">
+				{{ field }}
+			</div>
+		{% endfor %}
+		<div>
+			<button class="btn btn-primary mt-1" type="submit">Створити</button>
+		</div>
+	</form>
+</div>
+
+{% endblock %}

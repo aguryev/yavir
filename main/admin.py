@@ -49,6 +49,15 @@ class ChildAdmin(admin.ModelAdmin):
     ordering = ('class_id', 'last_name',)
     search_fields = ('last_name',)
 
+class EventCommentAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {'fields': ('event', 'text', 'author', 'posted', 'is_active')}),
+        )
+
+    list_display = ('__str__', 'posted', 'author', 'is_active')
+    ordering = ('-event__id', '-posted',)
+    
+
 
 
 admin.site.register(models.User, UserAdmin)
@@ -58,6 +67,6 @@ admin.site.register(models.SiteArticle)
 admin.site.register(models.BlogArticle)
 admin.site.register(models.ArticleComment)
 admin.site.register(models.Event)
-admin.site.register(models.EventComment)
+admin.site.register(models.EventComment, EventCommentAdmin)
 admin.site.register(models.Lesson)
 admin.site.register(models.KeyPerson)

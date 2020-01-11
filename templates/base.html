@@ -40,17 +40,17 @@
 		</button>
 		<!-- navbar Items -->
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
+			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href="/">Головна</a>
 				</li>
 
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown active">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMore" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Більше
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMore">
-						<a class="dropdown-item" href="#">Блог</a>
+						<a class="dropdown-item" href="/blog/">Блог</a>
 						<a class="dropdown-item" href="/events/">Події</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="/article/1/1/">1-й класс</a>
@@ -62,7 +62,7 @@
 				</li>
 
 				{% if user.is_authenticated %}
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown active">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownP" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Батькам
 					</a>
@@ -86,41 +86,27 @@
 				{% endif %}
 
 				{% if user.is_authenticated %}
-				<li class="nav-item">
-					<a class="nav-link" href="/accounts/profile">Мій профіль</a>
+				<li class="nav-item active">
+					<a class="nav-link" href="/profile/">Мій профіль</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item active">
 					<a class="nav-link" href="/accounts/logout/">Вихід</a>
 				</li>
 				{% else %}
-				<li class="nav-item">
+				<li class="nav-item active">
 					<a class="nav-link" href="/accounts/login/">Вхід</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item active">
 					<a class="nav-link" href="/accounts/signup/">Реєстрація</a>
 				</li>
 				{% endif %}
-				<!--
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Dropdown
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-				</li>
-			-->
 			</ul>
+			<!-- search form
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
+			-->
 		</div>
 	</div>
 	</nav>

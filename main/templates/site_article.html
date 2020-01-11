@@ -11,6 +11,8 @@
 	<img class="img-left" src="{{ article.image.url }}">
 	{{ article.text|safe }}
 
+	<h2 class="mt-3">Пов'язані статті</h2>
+	{% include 'articles_list.html' %}
 
 </div>
 

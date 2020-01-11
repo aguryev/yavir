@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Статті
+{% endblock %}
+
+{% block content %}
+
+<div class="container page-mr">
+	{% if user.is_authenticated %}
+		<div class="py-5 text-right">
+			<a class="btn btn-primary" href="/addarticle/">Новий допис</a>
+		</div>
+	{% endif %}
+	{% if articles %}
+		{% include 'articles_list.html' %}
+	{% else %}
+		<h4 class="header">Sorry, there is no article available now((</h4>
+	{% endif %}
+</div>
+
+{% endblock %}

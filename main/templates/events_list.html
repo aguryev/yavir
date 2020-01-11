@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+{% load extra_tags %}
 
 <div class="container page-mr">
 	{% if events %}
@@ -16,7 +17,7 @@
 						<img src="{{ event.image.url }}" class="card-img-top" alt="">
 						<div class="card-body">
 							<h5 class="card-title">{{ event.title }}</h5>
-							<p class="card-text">{{ event.time_start}}</p>
+							<p class="card-text">{{ event.time_start|format_date:"full" }}</p>
 						</div>
 					</div>
 				</a>

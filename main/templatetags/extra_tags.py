@@ -31,6 +31,11 @@ MONTHES = [
 	'Грудня',
 	]
 
+DAYS = [
+	'Сьогодні',
+	'Вчора',
+	]
+
 @register.simple_tag
 def admin_email():
 	#
@@ -42,6 +47,15 @@ def admin_email():
 	except User.DoesNotExist:
 		return ''
 
+@ register.simple_tag
+def user_name(user):
+	#
+	# get formatted user's name
+	# 
+	if user.first_name or user.last_name:
+		return f'{user.first_name} {user.last_name}'.strip()
+	else:
+		return user.email.split('@')[0].capitalize()
 
 @register.simple_tag
 def group_list(group_type):
@@ -70,12 +84,38 @@ def today(format):
 	else:
 		return 'NOT DEFINED'
 
-@register.filter('in_group') 
+@register.filter('in_group')
 def in_group(user, group_name):
 	#
 	# check if the user is in the group 'group_name'
 	#
 	return user.groups.filter(name=group_name).exists()
+
+@register.filter('format_date')
+def format_date(date, option):
+	#
+	# formats date as option:
+	# date -> day.month.year_if_not_current
+	# full -> (day.month)_if_not_today.year_if_not_current hours:minutes
+	#
+	now = timezone.now()
+	result = ''
+	# date option
+	if now.year == date.year and now.month == date.month and now.day == date.day:
+		result = DAYS[0]
+	elif now.year == date.year and now.month == date.month and now.day == (date.day + 1):
+		result = DAYS[1]
+	else:
+		result = f'{date.day} {MONTHES[date.month-1]}'
+		if now.year != date.year:
+			result += f' {date.year}'
+
+	# full option
+	if option == 'full':
+		result += f', {date.hour:0=2d}:{date.minute:0=2d}'
+
+	return result
+
 
 @register.filter('get_date')
 def get_date(date):
