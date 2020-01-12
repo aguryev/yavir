@@ -1,5 +1,6 @@
 from django import forms
 from . import models
+import tinymce
 
 
 class UserChangeForm(forms.ModelForm):
@@ -41,11 +42,11 @@ class AddArticleForm(forms.ModelForm):
 			}),
 		required=False,
 		)
-	text = forms.CharField(widget=forms.Textarea(attrs={
-		'class': 'form-control',
-		'rows': '10',
-		'placeholder': "Текст статті (обовязково)",
-		}))
+	#text = forms.CharField(widget=tinymce.widgets.Textarea(attrs={
+	#	'class': 'form-control',
+	#	'rows': '10',
+	#	'placeholder': "Текст статті (обовязково)",
+	#	}))
 	#associate_with = forms.CharField(widget=forms.Select(attrs={
 	#	'class': 'form-control',
 	#	'placeholder': "Прив'язати до...",
